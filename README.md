@@ -3,17 +3,12 @@ This repository keeps the content of the project AI-Driven Strategies for Optima
 ----
 # Project: AI-Driven Strategies for Optimal EV Charging Station Deployment
 
-### Goal of the Project: 
-* ...
-* ...
-
 ### Presentation
-... (presentation)[https://github.com/8ugr4/evtech01_2025/blob/main/Presentation_AI_Driven.pdf]
+* [presentation](https://github.com/8ugr4/evtech01_2025/blob/main/Presentation_AI_Driven.pdf)
 
-### Research Paper
-...
+### Results on the website
+* [aytacaydin](https://aytacaydin.com/evtech/)
 
----
 ### Contributors: 
-@4yt4c_4yd1n
-@8ugr4
+* @4yt4c_4yd1n
+* @8ugr4
