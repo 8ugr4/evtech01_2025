@@ -13,5 +13,5 @@ This repository keeps the content of the project AI-Driven Strategies for Optima
 * [aytacaydin](https://aytacaydin.com/evtech/)
 
 ### Contributors: 
-* [@4yt4c_4yd1n]
-* [@8ugr4]
+* @4yt4c_4yd1n
+* @8ugr4
