@@ -1,0 +1,209 @@
+
+%-----------------Einrichten-Papier-----------------%
+
+\documentclass{scrartcl}			% Artikelklasse mit Schriftgröße 11 auf A4-Format (1-Seitig (Für zweiseitig: "twoside"))
+
+%-----------------Pakete-Laden-----------------%
+\usepackage{makecell}
+\usepackage{lmodern}
+\usepackage{minted}
+\DeclareUnicodeCharacter{2212}{\textendash}
+\usepackage[T1]{fontenc}							% Erweiterung der Zeichenkodierung um Worttrennung bei  Umlauten zu ermöglichen
+\usepackage{svg}
+\usepackage{float}
+\usepackage[utf8]{inputenc} 						% Direkte Eingabe von dt. Umlauten/Sonderzeichen
+\usepackage{lipsum} % to create dummy text
+\usepackage{nextpage}								% Um leere Seiten zu erzeugen
+\usepackage{listings}								% Quelltext einbinden
+\usepackage{booktabs}								% Linienstile verwenden
+\usepackage{fancyhdr} 								% Seitenlayout (Kopf- und Fußzeile)
+\usepackage[english]{babel}							% allgemein gültig für deutsche Sprache - wandelt die sonst englische ausgabe in deutsche worte
+\usepackage{csquotes}	        					% Fancy Anführungszeichen
+\usepackage{textcomp}								% Nutzung von Sonderzeichen --> \texteuro für Währung
+\usepackage{graphicx} 								% Bilder einbinden
+\usepackage{amsmath,amssymb,amstext,mathrsfs}		% Mathematische Symbole
+\usepackage[mathcal]{euscript}						% weiterer Mathematischer Zeichensatz
+\usepackage{array}									% Zur Nutzung von Tabulatoren als Platzhalter(Ähnlich Tabellenumgebung)
+\usepackage{tabularx}								% Tabellenerstellung
+\usepackage{multirow} 								% in Tabelle mehrere Kästchen einer Zeile verbinden
+\usepackage{nomencl}								% Abkürzungsverzeichnis
+\usepackage[final]{pdfpages}						% Einbinden von PDF
+\usepackage{subfig}	
+\usepackage{pdflscape}								% PDFs können gedreht werden und anders formtiert
+\usepackage{longtable}
+\usepackage{biblatex}                % Biblatex/Biber ist nach Ludgers Ansicht das beste Zitationsystem. Das ist aber Geschmackssache, bibtex und natbib gehen auch
+\addbibresource{bibliography.bib}
+\usepackage{hyperref}                               % Klickbare Links
+\usepackage[unit-mode=text]{siunitx}				% Einhieten nicht kursiv
+\usepackage{wasysym}
+%\usepackage{times}                                  % Times New Roman, wer das schöner findet hier auskommentieren
+\usepackage{microtype}                              % Noch schönere Typographie
+\usepackage{blindtext}                              % Für den Sample-Text, kann man später auskommentieren
+\usepackage[
+nonumberlist, %keine Seitenzahlen anzeigen
+acronym,      %ein Abkürzungsverzeichnis erstellen
+toc,          %Einträge im Inhaltsverzeichnis
+section]{glossaries}
+\usepackage{listings}
+
+
+%--------------Seiteneinstellungen--------------%
+
+%\setlength{\parindent}{0mm}								% Einzug am Absatzbeginn in mm
+%\setmarginsrb			{30mm}							% linker Rand [Abstand in mm]
+%						{10mm}							% oberer Rand [Abstand in mm]
+%						{20mm}							% rechter Rand [Abstand in mm]
+%						{16mm}							% unterer Rand [Abstand in mm]
+%						{32pt}							% Headerhöhe
+%						{7.5mm}							% Abstand zwischen Header und Textbody [Abstand in mm]
+%						{32pt}							% Footerhöhe [Abstand in mm]
+%						{7.5mm}							% Abstand zwischen Footer und Textbody [Abstand in mm]
+
+%--------------Header und Footer Design--------------%
+
+\pagestyle{fancy} 								% eigener Seitenstil
+\fancyhf{} 										% alle Kopf- und Fußzeilenfelder bereinigen
+\fancyhead[L]{} 								% Kopfzeile links
+\fancyhead[C]{} 								% zentrierte Kopfzeile
+\fancyhead[R]{\small\leftmark} 					% Kopfzeile rechts
+\renewcommand{\headrulewidth}{0.4pt} 			% obere Trennlinie
+\fancyfoot[R]{\thepage} 						% Seitennummer
+%\renewcommand{\footrulewidth}{0.4pt} 			% untere Trennlinie
+\renewcommand*\MakeUppercase[1]{#1}				% alle Kopfzeilen kleingeschrieben
+
+
+%---------------Symbolverzeichnis im Glossary Style----------------%
+
+\newglossarystyle{listdottedskip}{%
+	\glossarystyle{list}%
+	\renewcommand*{\glossaryentryfield}[5]{%
+		\item[]\makebox[0.5\glslistdottedwidth][l]{\glstarget{##1}{##2}%
+			\unskip\leaders\hbox to 2.9mm{\hss.}\hfill\strut}\parbox[t]{\textwidth-0.5\glslistdottedwidth-\labelsep}{##3}}%\hss. stat 5em
+	\renewcommand*{\glossarysubentryfield}[6]{%
+		\item[]\makebox[0.5\glslistdottedwidth][l]{\glstarget{##2}{##3}%
+			\unskip\leaders\hbox to 2.9mm{\hss.}\hfill\strut}##4}%
+}
+
+
+%Den Punkt am Ende jeder Beschreibung deaktivieren glossar
+\renewcommand*{\glspostdescription}{}
+%Glossar-Befehle anschalten
+\newglossary[slg]{symbolslist}{syi}{syg}{Symbolverzeichnis}
+\makenoidxglossaries
+\newglossarystyle{Symbolverzeichnis}{
+	%% Umgebung: longtable
+	\renewenvironment{theglossary}
+	{\begin{longtable}{@{}ccp{6cm}p{6cm}@{}}}
+		{\end{longtable}} %Tabellenkopf
+	\renewcommand*{\glossaryheader}{
+		\textbf{Symbol} & \textbf{Unit} & \textbf{Name} \\
+		\endhead}
+	% keine Überschriften zwischen Gruppen
+	\renewcommand*{\glsgroupheading}[1]{}
+	% Haupteinträge in einer Zeile:
+	\renewcommand*{\glossaryentryfield}[4]{
+		\glsentryuseri{##1}		% Symbol
+		& \si{\glsentryuserii{##1}}		% Einheit
+		& \glstarget{##1}{##2}		% Name
+		& ##3		% Description
+		\\		% Zeilenende
+	}
+	% Untereinträge wie Haupteinträge
+	\renewcommand*{\glossarysubentryfield}[6]{
+		\glossaryentryfield{##2}{##3}{##4}{##5}{##6}}
+	% nichts zwischen Gruppen
+	\renewcommand*{\glsgroupskip}{}
+}
+
+% XXX
+\newglossarystyle{physeinheiten}{
+%
+% Umgebung: longtable
+\renewenvironment{theglossary}
+%
+  {\begin{longtable}{@{}ccp{12cm}p{6cm}@{}}}
+%
+{\end{longtable}}
+%
+% Tabellenkopf
+\renewcommand*{\glossaryheader}{
+%
+\textbf{Symbol} & \textbf{Unit} & \textbf{Name} \\
+\endhead}
+%
+% keine Überschriften zwischen Gruppen
+\renewcommand*{\glsgroupheading}[1]{}
+%
+% Haupteinträge in einer Zeile:
+\renewcommand*{\glossaryentryfield}[4]{
+%
+ \glstarget{##1}{##2}
+% Symbol
+& \si{\glsentryuserii{##1}}
+% Einheit
+& \glsentryuseri{##1}
+% Name
+
+\\
+% Zeilenende
+}
+%
+% Untereinträge wie Haupteinträge
+\renewcommand*{\glossarysubentryfield}[6]{
+%
+\glossaryentryfield{##2}{##3}{##4}{##5}{##6}}
+%
+% nichts zwischen Gruppen
+\renewcommand*{\glsgroupskip}{}
+%
+}
+
+
+
+
+
+
+%----------------------Start-Dokument--------------------------%
+\loadglsentries{Dokumente/glossar}
+\begin{document}
+	\fancyfoot[R]{}								% Seitenzahl aus
+
+	\include{Dokumente/Deckblatt}  				% Einbinden des Deckblattes
+	\include{Dokumente/disclaimer}				% Danksagung, Eidesstattliche Erklärung, Sperrvermerk
+	
+	\fancyfoot[R]{\thepage}						% Seitenanzahl an
+	\pagenumbering{roman}						% Seitenanzahl in klein roman
+	\tableofcontents				% Inhaltsverzeichnis
+	\newpage
+	\listoffigures 								% Abbildungsverzeichnis
+	\newpage
+	\listoftables 								% Tabellenverzeichnis
+	\newpage
+	
+	\pagenumbering{arabic}
+	\include{Dokumente/content}
+
+	\setcounter{page}{1}						% Seitanzahl wieder auf 1
+	\pagenumbering{Roman}						% Seitenanzahl in groß roman
+	
+	\addcontentsline{toc}{section}{Literature}	% im Inhaltsverzeichnis anzeigen
+	\printbibliography
+	%\include{Dokumente/Anhang}
+
+        \printnoidxglossary[type=symbolslist,title=Table of literature,style=list]
+        \newpage
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+		\deftranslation[to=German]{Acronyms}{Abk"urzungsverzeichnis}
+		\setlength{\glslistdottedwidth}{.2\linewidth}
+		\printnoidxglossary[style=listdotted,type=\acronymtype,title=Table of abbreviations]	%altlist	listdottedskip ,style=listdottedskip
+		\newpage
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+		\newpage
+		\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+		\deftranslation[to=German]{Glossary}{Glossar}
+		\printnoidxglossary[style=altlist,title=Glossary]%
+		\newpage%
+	
+	
+
+\end{document}
